@@ -4,11 +4,11 @@ ckan.module('cesiumpreview', function (jQuery, _) {
         initialize: function () {
             var self = this;
 
-//      var vis_server = 'http://localhost';  //local
-            var vis_server = 'https://nationalmap.gov.au/';
+            var vis_server = 'http://internal-map.dpaw.wa.gov.au/';
+//            var vis_server = 'https://nationalmap.gov.au/';
 
             var config = {
-                "version": "0.0.03",
+                "version": "0.0.05",
                 "initSources": [{
                     "catalog": [{
                         "type": "group",
@@ -29,7 +29,7 @@ ckan.module('cesiumpreview', function (jQuery, _) {
                     "homeCamera": {
                         "west": 105,
                         "south": -45,
-                        "east": 155,
+                        "east": 130,
                         "north": -5
                     }
 
@@ -72,8 +72,13 @@ ckan.module('cesiumpreview', function (jQuery, _) {
             var encoded_config = encodeURIComponent(JSON.stringify(config));
             var style = 'height: 600px; width: 100%; border: none;';
             var display = 'allowFullScreen mozAllowFullScreen webkitAllowFullScreen';
+            var src = vis_server + '#clean&hideExplorerPanel=1&start=' + encoded_config
+            var btn = '<div><a id="cesium-fullscreen" type="button" class="btn btn-warning" href="' + src + 
+                  '" title="Open map full-screen in a new tab" target="_"' + 
+              '><i class="icon-fullscreen"></i>View Map Full-Screen</a></div>'
+            var map = '<iframe src="' + src  + '" style="' + style + '" ' + display + '></iframe>';
+            var html = btn + map
 
-            var html = '<iframe src="' + vis_server + '#clean&hideExplorerPanel=1&start=' + encoded_config + '" style="' + style + '" ' + display + '></iframe>';
 
             console.log(html);
 
